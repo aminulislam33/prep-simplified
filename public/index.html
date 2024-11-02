@@ -1,0 +1,93 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prep Simplified | Electrical Engineer's Society</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-red-800 text-white">
+    <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <!-- EES Logo -->
+        <img src="ees-logo.png" alt="EES Logo" class="h-10">
+        <h1 class="text-2xl font-bold">Electrical Engineers' Society</h1>
+      </div>
+      <nav class="flex space-x-4">
+        <a href="#" class="hover:text-yellow-400">Home</a>
+        <a href="#" class="hover:text-yellow-400">About</a>
+        <a href="#" class="hover:text-yellow-400">People</a>
+        <a href="#" class="hover:text-yellow-400">Placements</a>
+        <a href="#" class="hover:text-yellow-400">Gallery</a>
+        <a href="#" class="hover:text-yellow-400">Other Initiatives</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-6 py-12">
+    <div class="flex flex-col lg:flex-row">
+      <aside class="lg:w-1/4 bg-red-600 text-white rounded-lg p-6 mb-8 lg:mb-0 lg:mr-8">
+        <div class="mb-6">
+          <input type="text" placeholder="Search for anything..." class="w-full py-2 px-4 rounded-lg bg-red-700 text-white placeholder-white focus:outline-none">
+        </div>
+        <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:text-yellow-400">Faculty</a></li>
+          <li><a href="#" class="hover:text-yellow-400">AptiCrack</a></li>
+          <li><a href="#" class="hover:text-yellow-400">Gallery</a></li>
+        </ul>
+      </aside>
+
+      <!-- Event Details -->
+      <section class="lg:w-3/4 bg-white rounded-lg shadow-lg p-8">
+        <h2 class="text-3xl font-bold text-red-800 mb-6 text-center">Prep Simplified</h2>
+        <img src="event.jpg" alt="Event Banner" class="w-full rounded-lg mb-6">
+        <p class="text-gray-700 mb-6 text-center">
+          An initiative to bring alumni to share their experiences from companies like Google, Texas Instruments, and Tata Steel, as well as insights on prestigious exams like GATE, CAT, GRE, and IES.
+        </p>
+
+        <!-- Event Information -->
+        <div class="bg-gray-50 rounded-lg p-6 mb-6">
+          <h3 class="text-2xl font-semibold text-red-700 mb-4">Event Information</h3>
+          <p class="text-gray-700"><strong>Date:</strong> March 15, 2024</p>
+          <p class="text-gray-700"><strong>Time:</strong> 10:00 AM - 2:00 PM</p>
+          <p class="text-gray-700"><strong>Venue:</strong> Main Auditorium, Electrical Engineering Dept.</p>
+        </div>
+
+        <!-- Guests -->
+        <h3 class="text-2xl font-semibold text-red-700 mb-4">Esteemed Guests</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+          <div class="bg-gray-100 p-4 rounded-lg shadow">
+            <h4 class="text-lg font-bold">John Doe - Google</h4>
+            <p>Software Engineer at Google, sharing tips for cracking tech interviews and navigating a tech career.</p>
+          </div>
+          <div class="bg-gray-100 p-4 rounded-lg shadow">
+            <h4 class="text-lg font-bold">Dr. Priya Singh - Texas Instruments</h4>
+            <p>Senior Researcher at Texas Instruments, discussing research careers in electronics and innovation pathways.</p>
+          </div>
+          <!-- Add more guests as needed -->
+        </div>
+
+        <!-- Register Button -->
+        <div class="text-center">
+          <a href="#" class="bg-red-800 text-white font-semibold py-3 px-10 rounded-full shadow-lg hover:bg-red-700 transition duration-300">Register Now</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-red-900 text-white py-6 mt-12">
+    <div class="container mx-auto px-6 text-center">
+      <p>© 2024 Electrical Engineer's Society, Department of Electrical Engineering, IIEST Shibpur</p>
+    </div>
+  </footer>
+
+</body>
+</html>
