@@ -1,5 +1,6 @@
 const Registration = require("../models/Registration");
 const XLSX = require('xlsx');
+const fs = require('fs');
 
 // Get all registrations
 exports.getAllRegistrations = async (req, res) => {
@@ -38,13 +39,31 @@ exports.exportRegistrations = async (req, res) => {
   try {
     const registrations = await Registration.find();
 
+    console.log('Fetched registrations:', registrations);
+
+    if (registrations.length === 0) {
+      return res.status(404).json({ message: 'No registrations found to export.' });
+    }
+
+    const data = registrations.map(reg => ({
+      Name: reg.name,
+      Email: reg.email,
+      Phone: reg.phone,
+      Year: reg.year,
+    }));
+
     const workbook = XLSX.utils.book_new();
-    const worksheet = XLSX.utils.json_to_sheet(registrations);
+    const worksheet = XLSX.utils.json_to_sheet(data);
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Registrations');
 
     const filename = 'registrations.xlsx';
+    const uploadsDir = `${__dirname}/../uploads`;
 
-    const filePath = `${__dirname}/../uploads/${filename}`;
+    if (!fs.existsSync(uploadsDir)) {
+      fs.mkdirSync(uploadsDir, { recursive: true });
+    }
+
+    const filePath = `${uploadsDir}/${filename}`;
     XLSX.writeFile(workbook, filePath);
 
     res.download(filePath, filename, (err) => {
