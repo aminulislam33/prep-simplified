@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prep Simplified Registration</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex justify-center items-center h-screen">
+  <div id="form-container" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-md w-full">
+    <h2 class="text-2xl font-bold mb-6 text-center">Prep Simplified Registration</h2>
+    <form id="registrationForm">
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Name</label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Enter your name" required>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Enter your email" required>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">Phone</label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phone" type="tel" placeholder="Enter your phone number" required>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="year">Graduation Year</label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="year" type="number" placeholder="Enter your graduation year" required>
+      </div>
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Register</button>
+    </form>
+  </div>
+
+  <div id="user-details" class="hidden bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-md w-full">
+    <h2 class="text-2xl font-bold mb-6 text-center">Registration Successful</h2>
+    <p class="text-gray-700"><strong>Name:</strong> <span id="display-name"></span></p>
+    <p class="text-gray-700"><strong>Email:</strong> <span id="display-email"></span></p>
+    <p class="text-gray-700"><strong>Phone:</strong> <span id="display-phone"></span></p>
+    <p class="text-gray-700"><strong>Graduation Year:</strong> <span id="display-year"></span></p>
+  </div>
+
+  <script>
+    document.getElementById('registrationForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const data = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        year: document.getElementById('year').value,
+      };
+
+      try {
+        const response = await fetch('http://localhost:8000/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          // Hide the form and display the user details
+          document.getElementById('form-container').classList.add('hidden');
+          document.getElementById('user-details').classList.remove('hidden');
+
+          // Populate user details in the display
+          document.getElementById('display-name').textContent = result.user.name;
+          document.getElementById('display-email').textContent = result.user.email;
+          document.getElementById('display-phone').textContent = result.user.phone;
+          document.getElementById('display-year').textContent = result.user.year;
+        } else {
+          alert(result.message || 'Registration failed. Please try again.');
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Error submitting form.');
+      }
+    });
+  </script>
+</body>
+</html>
