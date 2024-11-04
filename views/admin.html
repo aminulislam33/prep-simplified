@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Manage Registrations</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+  <!-- Header -->
+  <header class="bg-blue-600 p-4 shadow-lg">
+    <h1 class="text-white text-3xl text-center font-bold">Admin Dashboard</h1>
+    <p class="text-blue-200 text-center">Manage Registrations</p>
+  </header>
+
+  <!-- Content -->
+  <div class="container mx-auto mt-8">
+    <div class="bg-white shadow-md rounded p-6">
+      <h2 class="text-2xl font-semibold mb-4 text-gray-700">User Registrations</h2>
+
+      <!-- Download Button -->
+      <div class="text-center mb-4">
+        <a href="/api/admin/export" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+          Download Registrations as Excel
+        </a>
+      </div>
+
+      <!-- Registration List -->
+      <div id="registration-list" class="space-y-4">
+        <!-- Registrations will be loaded here dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Fetch and display all registrations
+    async function fetchRegistrations() {
+      const response = await fetch('/api/admin/registrations');
+      const registrations = await response.json();
+      const list = document.getElementById('registration-list');
+      list.innerHTML = '';
+
+      registrations.forEach((registration) => {
+        const item = document.createElement('div');
+        item.classList = "p-4 bg-gray-50 border rounded-lg shadow hover:shadow-lg transition-shadow";
+
+        item.innerHTML = `
+          <div class="flex justify-between items-center">
+            <div>
+              <p class="text-lg font-medium text-gray-800"><strong>Name:</strong> ${registration.name}</p>
+              <p class="text-gray-600"><strong>Email:</strong> ${registration.email}</p>
+              <p class="text-gray-600"><strong>Phone:</strong> ${registration.phone}</p>
+              <p class="text-gray-600"><strong>Graduation Year:</strong> ${registration.year}</p>
+            </div>
+            <button onclick="deleteRegistration('${registration._id}')" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 focus:outline-none">
+              Delete
+            </button>
+          </div>
+        `;
+
+        list.appendChild(item);
+      });
+    }
+
+    // Delete a registration
+    async function deleteRegistration(id) {
+      if (confirm("Are you sure you want to delete this registration?")) {
+        await fetch(`/api/admin/registrations/${id}`, { method: 'DELETE' });
+        fetchRegistrations();
+      }
+    }
+
+    // Fetch registrations on page load
+    fetchRegistrations();
+  </script>
+
+</body>
+</html>

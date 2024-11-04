@@ -1,4 +1,4 @@
-const Registration = require("../models/schema");
+const Registration = require("../models/Registration");
 
 const handleRegistration = async (req,res)=>{
     try {
